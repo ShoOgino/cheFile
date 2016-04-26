@@ -8,14 +8,18 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.jseditor.client.preference;
+package org.eclipse.che.ide.jseditor.client.preference.editorproperties;
 
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.inject.ImplementedBy;
 
-/** View interface for the preference page for the editor preferences. */
-public interface EditorPreferenceView extends IsWidget {
-
-    AcceptsOneWidget getKeymapsContainer();
-    AcceptsOneWidget getEditorPropertiesContainer();
+/**
+ * The class provides special panel to store editor's sections.
+ *
+ * @author Roman Nikitenko
+ */
+@ImplementedBy(EditorPropertiesViewImpl.class)
+public interface EditorPropertiesView extends IsWidget{
+    AcceptsOneWidget getEditorSectionsContainer();
 }
