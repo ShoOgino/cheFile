@@ -8,19 +8,29 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.editor.synchronization;
+package org.eclipse.che.api.project.shared.dto.event;
 
-/**
- * The factory creates instances of {@link EditorGroupSynchronization} to provide the synchronization of
- * the content for them.
- *
- * @author Roman Nikitenko
- */
-public interface EditorGroupSychronizationFactory {
-    /**
-     * Creates implementation of {@link EditorGroupSynchronization}.
-     *
-     * @return an instance of {@link EditorGroupSynchronization}
-     */
-    EditorGroupSynchronization create();
+import org.eclipse.che.dto.shared.DTO;
+
+@DTO
+public interface FileTrackingOperationDto {
+    String getPath();
+
+    FileTrackingOperationDto withPath(String path);
+
+    String getOldPath();
+
+    FileTrackingOperationDto withOldPath(String oldPath);
+
+    Type getType();
+
+    FileTrackingOperationDto withType(Type type);
+
+    enum Type {
+        START,
+        STOP,
+        SUSPEND,
+        RESUME,
+        MOVE
+    }
 }
