@@ -8,23 +8,22 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.part.editor;
+package org.eclipse.che.providers;
 
-import org.eclipse.che.ide.api.parts.EditorPartStack;
+import com.google.common.annotations.Beta;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * The factory which creates instances of {@link EditorPartStack}.
+ * Type annotated with this annotation will be accessible with class name via {@link DynaProvider#getProvider(String)}
  *
- * @author Roman Nikitenko
- * @deprecated use {@link com.google.inject.Provider} to get new instance
+ * @author Evgen Vidolob
  */
-@Deprecated
-public interface EditorPartStackFactory {
-
-    /**
-     * Creates implementation of {@link EditorPartStack}.
-     *
-     * @return an instance of {@link EditorPartStack}
-     */
-    EditorPartStack create();
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Beta
+public @interface DynaObject {
 }

@@ -8,23 +8,28 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.part.editor;
+package org.eclipse.che.providers;
 
-import org.eclipse.che.ide.api.parts.EditorPartStack;
+import com.google.common.annotations.Beta;
+import com.google.inject.Provider;
+
+import org.eclipse.che.commons.annotation.Nullable;
 
 /**
- * The factory which creates instances of {@link EditorPartStack}.
+ * Provider that can create instance of some object by class name.
  *
- * @author Roman Nikitenko
- * @deprecated use {@link com.google.inject.Provider} to get new instance
+ *
+ * @author Evgen Vidolob
  */
-@Deprecated
-public interface EditorPartStackFactory {
+@Beta
+public interface DynaProvider {
 
     /**
-     * Creates implementation of {@link EditorPartStack}.
-     *
-     * @return an instance of {@link EditorPartStack}
+     * Get provider for class name.
+     * @param className the class name: {@link Class#getName()}
+     * @param <T> the type
+     * @return the provider for class
      */
-    EditorPartStack create();
+    @Nullable
+    <T> Provider<T> getProvider(String className);
 }

@@ -8,23 +8,30 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.part.editor;
-
-import org.eclipse.che.ide.api.parts.EditorPartStack;
+package org.eclipse.che.providers;
 
 /**
- * The factory which creates instances of {@link EditorPartStack}.
+ * Data class for generator.
+ * Holds class name and variable name for class.
  *
- * @author Roman Nikitenko
- * @deprecated use {@link com.google.inject.Provider} to get new instance
+ * @author Evgen Vidolob
  */
-@Deprecated
-public interface EditorPartStackFactory {
+public class ClassModel {
 
-    /**
-     * Creates implementation of {@link EditorPartStack}.
-     *
-     * @return an instance of {@link EditorPartStack}
-     */
-    EditorPartStack create();
+    private String name;
+
+    private String varName;
+
+    public ClassModel(Class<?> clazz) {
+        name = clazz.getName();
+        varName = clazz.getName().replaceAll("\\.", "_");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getVarName() {
+        return varName;
+    }
 }
