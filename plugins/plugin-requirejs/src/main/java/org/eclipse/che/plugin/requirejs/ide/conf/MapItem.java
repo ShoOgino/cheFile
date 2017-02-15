@@ -8,7 +8,7 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
 public class MapItem extends AssocitativeJsObject<String> {
 

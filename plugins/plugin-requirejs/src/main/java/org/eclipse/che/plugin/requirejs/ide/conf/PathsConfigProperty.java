@@ -8,22 +8,14 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
-import com.google.gwt.core.client.JsArray;
+public class PathsConfigProperty extends AssocitativeJsObject<String> {
 
-/**
- * Interface for requirejs completion callbacks.
- *
- * @author "Mickaël Leduque"
- */
-public interface RequirejsCallback {
+    protected PathsConfigProperty() {
+    }
 
-    /**
-     * Executed when the required modules are loaded
-     *
-     * @param modules
-     *         the module instances
-     */
-    void onReady(JsArray<RequirejsModule> modules);
+    public static final native PathsConfigProperty create() /*-{
+        return {};
+    }-*/;
 }

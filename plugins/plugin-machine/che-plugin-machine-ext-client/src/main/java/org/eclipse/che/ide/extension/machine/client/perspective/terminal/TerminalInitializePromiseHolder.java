@@ -10,25 +10,26 @@
  *******************************************************************************/
 package org.eclipse.che.ide.extension.machine.client.perspective.terminal;
 
-import org.eclipse.che.ide.collections.Jso;
+import com.google.inject.Singleton;
+
+import org.eclipse.che.api.promises.client.Promise;
 
 /**
- * @author Evgen Vidolob
+ * @author Alexander Andrienko
  */
-class TerminalOptionsJso extends Jso{
-    protected TerminalOptionsJso() {
+@Singleton
+public class TerminalInitializePromiseHolder {
+
+    private Promise<Void> initializerPromise;
+
+    public void setInitializerPromise(Promise<Void> initializerPromise) {
+        this.initializerPromise = initializerPromise;
     }
 
-    public static native TerminalOptionsJso createDefault() /*-{
-        return {
-            cols: 80,
-            rows: 24,
-            screenKeys: true,
-            focusOnOpen: false
+    public Promise<Void> getInitializerPromise() {
+        if (initializerPromise == null) {
+            throw new RuntimeException("Terminal initializer not set");
         }
-    }-*/;
-
-    public final native TerminalOptionsJso withFocusOnOpen(boolean focusOnOpen) /*-{
-        this.focusOnOpen = focusOnOpen;
-    }-*/;
+        return initializerPromise;
+    }
 }

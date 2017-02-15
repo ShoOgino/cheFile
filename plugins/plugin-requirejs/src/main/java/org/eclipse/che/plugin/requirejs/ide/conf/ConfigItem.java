@@ -8,29 +8,16 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArrayString;
 
-public class MapConfigProperty extends JavaScriptObject {
+public class ConfigItem extends AssocitativeJsObject<JavaScriptObject> {
 
-    protected MapConfigProperty() {
+    protected ConfigItem() {
     }
 
-    public final native MapConfigProperty create() /*-{
+    public static final native ConfigItem create() /*-{
         return {};
-    }-*/;
-
-    public final native MapItem getMap(String prefix) /*-{
-        return this[prefix];
-    }-*/;
-
-    public final native void setMap(String prefix, MapItem map) /*-{
-        this[prefix] = map;
-    }-*/;
-
-    public final native JsArrayString getPrefixes() /*-{
-        return this.getOwnPropertyNames();
     }-*/;
 }

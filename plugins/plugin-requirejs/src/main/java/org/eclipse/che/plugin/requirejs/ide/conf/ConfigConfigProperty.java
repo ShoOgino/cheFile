@@ -8,33 +8,29 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
-/**
- * A bundle configuration object for requirejs.
- *
- * @author "Mickaël Leduque"
- */
-public final class BundlesConfigProperty extends JavaScriptObject {
-    protected BundlesConfigProperty() {
+public class ConfigConfigProperty extends JavaScriptObject {
+
+    protected ConfigConfigProperty() {
     }
 
-    public final static native BundlesConfigProperty create() /*-{
+    public final native ConfigConfigProperty create() /*-{
         return {};
     }-*/;
 
-    public final native void addBundle(String mainModule, JsArrayString bundlesModules) /*-{
-        this[mainModule] = bundlesModules;
+    public final native ConfigItem getMap(String prefix) /*-{
+        return this[prefix];
     }-*/;
 
-    public final native JsArrayString getBundle(String mainModule) /*-{
-        return this[mainModule];
+    public final native void setMap(String prefix, ConfigItem map) /*-{
+        this[prefix] = map;
     }-*/;
 
-    public final native JsArrayString getKeys() /*-{
+    public final native JsArrayString getPrefixes() /*-{
         return this.getOwnPropertyNames();
     }-*/;
 }

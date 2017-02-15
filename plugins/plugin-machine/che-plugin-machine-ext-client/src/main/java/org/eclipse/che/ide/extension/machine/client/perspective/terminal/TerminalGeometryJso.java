@@ -8,14 +8,23 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.ide.extension.machine.client.perspective.terminal;
 
-public class PathsConfigProperty extends AssocitativeJsObject<String> {
+import com.google.gwt.core.client.JavaScriptObject;
 
-    protected PathsConfigProperty() {
+/**
+ * @author Alexander Andrienko
+ */
+public class TerminalGeometryJso extends JavaScriptObject {
+
+    protected TerminalGeometryJso() {
     }
 
-    public static final native PathsConfigProperty create() /*-{
-        return {};
+    public final native int getCols() /*-{
+        return this.cols;
+    }-*/;
+
+    public final native int getRows() /*-{
+        return this.rows;
     }-*/;
 }

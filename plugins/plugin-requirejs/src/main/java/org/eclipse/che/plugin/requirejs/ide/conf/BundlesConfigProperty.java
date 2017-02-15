@@ -8,30 +8,33 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArrayString;
 
-public class ShimConfigProperty extends JavaScriptObject {
-
-    protected ShimConfigProperty() {
+/**
+ * A bundle configuration object for requirejs.
+ *
+ * @author "Mickaël Leduque"
+ */
+public final class BundlesConfigProperty extends JavaScriptObject {
+    protected BundlesConfigProperty() {
     }
 
-    public final native ShimConfigProperty create() /*-{
+    public final static native BundlesConfigProperty create() /*-{
         return {};
     }-*/;
 
-    public final native void addShim(String module, ShimItem shim) /*-{
-        this[module] = shim;
+    public final native void addBundle(String mainModule, JsArrayString bundlesModules) /*-{
+        this[mainModule] = bundlesModules;
     }-*/;
 
-    public final native ShimItem getShim(String module) /*-{
-        return this[module];
+    public final native JsArrayString getBundle(String mainModule) /*-{
+        return this[mainModule];
     }-*/;
 
     public final native JsArrayString getKeys() /*-{
         return this.getOwnPropertyNames();
     }-*/;
-
 }

@@ -8,27 +8,26 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.extension.machine.client.perspective.terminal;
+package org.eclipse.che.plugin.requirejs.ide.conf;
 
-import org.eclipse.che.ide.collections.Jso;
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
 
-/**
- * @author Evgen Vidolob
- */
-class TerminalOptionsJso extends Jso{
-    protected TerminalOptionsJso() {
+public class AssocitativeJsObject<T> extends JavaScriptObject {
+
+    protected AssocitativeJsObject() {
     }
 
-    public static native TerminalOptionsJso createDefault() /*-{
-        return {
-            cols: 80,
-            rows: 24,
-            screenKeys: true,
-            focusOnOpen: false
-        }
+    public final native JsArrayString getKeys() /*-{
+        return this.getOwnPropertyNames();
     }-*/;
 
-    public final native TerminalOptionsJso withFocusOnOpen(boolean focusOnOpen) /*-{
-        this.focusOnOpen = focusOnOpen;
+    public final native void put(String key, T value) /*-{
+        this[key] = value;
     }-*/;
+
+    public final native T get(String key) /*-{
+        return this[key];
+    }-*/;
+
 }

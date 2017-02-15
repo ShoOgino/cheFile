@@ -8,16 +8,16 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.requirejs.config;
+package org.eclipse.che.ide.terminal.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
 
-public class ConfigItem extends AssocitativeJsObject<JavaScriptObject> {
-
-    protected ConfigItem() {
-    }
-
-    public static final native ConfigItem create() /*-{
-        return {};
-    }-*/;
+/**
+ * @author Alexander Andrienko
+ */
+public interface TerminalResources extends ClientBundle {
+  @CssResource.NotStrict
+  @Source({"xterm.css"})
+  CssResource getTerminalStyle();
 }
