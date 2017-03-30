@@ -8,26 +8,16 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.editor.preferences;
-
-import com.google.gwt.i18n.client.Messages;
+package org.eclipse.che.plugin.docker.client.exception;
 
 /**
- * I18n Constants for the preference window.
+ * Occurs when docker exec is not found.
  *
- * @author "Mickaël Leduque"
+ * @author Alexander Garagatyi
  */
-public interface EditorPrefLocalizationConstant extends Messages {
+public class ExecNotFoundException extends DockerException {
 
-    @Key("editortype.title")
-    String editorTypeTitle();
-
-    @Key("editortype.category")
-    String editorTypeCategory();
-
-    @DefaultMessage("Keys")
-    String keysSectionLabel();
-
-    @DefaultMessage("Key Bindings")
-    String keybindingsLabel();
+    public ExecNotFoundException(String message) {
+        super(message, 404);
+    }
 }
