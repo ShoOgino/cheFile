@@ -8,16 +8,10 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.plugin.languageserver.ide.editor;
+package org.eclipse.che.api.core.util;
 
-import org.eclipse.che.ide.api.editor.texteditor.TextEditor;
+import java.util.Set;
 
-import io.typefox.lsapi.ServerCapabilities;
-
-/**
- * @author Evgen Vidolob
- */
-public interface LanguageServerEditorConfigurationFactory {
-
-    LanguageServerEditorConfiguration build(TextEditor editor, ServerCapabilities capabilities);
+public interface JsonRpcEndpointIdProvider {
+    Set<String> get();
 }

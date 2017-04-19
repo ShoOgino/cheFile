@@ -8,16 +8,12 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.plugin.languageserver.ide.editor;
-
-import org.eclipse.che.ide.api.editor.texteditor.TextEditor;
-
-import io.typefox.lsapi.ServerCapabilities;
+package org.eclipse.che;
 
 /**
- * @author Evgen Vidolob
+ * Provide URL for Javadoc service
  */
-public interface LanguageServerEditorConfigurationFactory {
+public interface JavadocUrlProvider {
 
-    LanguageServerEditorConfiguration build(TextEditor editor, ServerCapabilities capabilities);
+    String getJavadocUrl(String projectPath);
 }

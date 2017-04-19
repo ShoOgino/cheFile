@@ -7,17 +7,21 @@
  *
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
+ *   SAP           - implementation
  *******************************************************************************/
-package org.eclipse.che.plugin.languageserver.ide.editor;
+package org.eclipse.che.git.impl.jgit;
 
-import org.eclipse.che.ide.api.editor.texteditor.TextEditor;
+import com.google.inject.AbstractModule;
 
-import io.typefox.lsapi.ServerCapabilities;
+import org.eclipse.che.api.git.GitConnectionFactory;
 
 /**
- * @author Evgen Vidolob
+ * Guice module to install jgit implementation of git components
+ * @author Sergii Kabashnyuk
  */
-public interface LanguageServerEditorConfigurationFactory {
-
-    LanguageServerEditorConfiguration build(TextEditor editor, ServerCapabilities capabilities);
+public class JGitModule extends AbstractModule {
+    @Override
+    protected void configure() {
+        bind(GitConnectionFactory.class).to(JGitConnectionFactory.class);
+    }
 }
