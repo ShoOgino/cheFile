@@ -8,22 +8,11 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.plugin.testing.testng.ide;
+package org.eclipse.che.ide.api.editor.events;
 
-import org.vectomatic.dom.svg.ui.SVGResource;
+import com.google.gwt.event.shared.EventHandler;
 
-import com.google.gwt.resources.client.ClientBundle;
+public interface DocumentChangingHandler extends EventHandler {
 
-/**
- *
- * @author Mirage Abeysekara
- */
-public interface TestNGResources extends ClientBundle {
-
-    @Source("org/eclipse/che/plugin/testing/ide/svg/test.svg")
-    SVGResource testIcon();
-
-    @Source("org/eclipse/che/plugin/testing/ide/svg/test_all.svg")
-    SVGResource testAllIcon();
-
+    void onDocumentChanging(DocumentChangingEvent event);
 }
