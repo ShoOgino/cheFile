@@ -8,13 +8,22 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.ide.command.toolbar;
+package org.eclipse.che.ide.command.toolbar.controller;
 
-import com.google.gwt.safehtml.shared.SafeHtml;
+import org.eclipse.che.ide.api.mvp.View;
 
-/** Factory for the buttons placed on Commands Toolbar. */
-public interface ToolbarButtonsFactory {
+/**
+ * Represents button in the top menu for managing the Toolbar.
+ */
+public interface ToolbarControllerView extends View<ToolbarControllerView.ActionDelegate> {
 
-    OpenCommandsPaletteButton createOpenPaletteButton(SafeHtml content);
+    interface ActionDelegate {
+
+        /**
+         * Shows menu by clicking on selector button.
+         */
+        void showMenu(int mouseX, int mouseY);
+
+    }
 
 }
