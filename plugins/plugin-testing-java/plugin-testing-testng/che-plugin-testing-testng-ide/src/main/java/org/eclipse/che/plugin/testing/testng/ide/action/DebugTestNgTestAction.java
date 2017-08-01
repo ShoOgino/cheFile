@@ -8,9 +8,9 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.che.plugin.testing.ide.action;
+package org.eclipse.che.plugin.testing.testng.ide.action;
 
-import com.google.inject.Singleton;
+import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 
 import org.eclipse.che.ide.api.action.ActionEvent;
@@ -20,30 +20,33 @@ import org.eclipse.che.ide.api.debug.DebugConfigurationsManager;
 import org.eclipse.che.ide.api.notification.NotificationManager;
 import org.eclipse.che.ide.dto.DtoFactory;
 import org.eclipse.che.ide.util.Pair;
-import org.eclipse.che.plugin.testing.ide.TestResources;
 import org.eclipse.che.plugin.testing.ide.TestServiceClient;
+import org.eclipse.che.plugin.testing.ide.action.RunDebugTestAbstractAction;
 import org.eclipse.che.plugin.testing.ide.handler.TestingHandler;
 import org.eclipse.che.plugin.testing.ide.view2.TestResultPresenter;
+import org.eclipse.che.plugin.testing.testng.ide.TestNgLocalizationConstant;
+import org.eclipse.che.plugin.testing.testng.ide.TestNgResources;
 
-import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 
 import static java.util.Collections.singletonList;
 import static org.eclipse.che.ide.workspace.perspectives.project.ProjectPerspective.PROJECT_PERSPECTIVE_ID;
 
-/** Action that allows to run tests from current editor. */
-@Singleton
-public class DebugTestAction extends RunDebugTestAbstractAction {
+/**
+ * Action for debugging TestNg test.
+ */
+public class DebugTestNgTestAction extends RunDebugTestAbstractAction {
     @Inject
-    public DebugTestAction(EventBus eventBus,
-                           TestServiceClient client,
-                           DebugConfigurationsManager debugConfigurationsManager,
-                           DtoFactory dtoFactory,
-                           TestResources testResources,
-                           AppContext appContext,
-                           NotificationManager notificationManager,
-                           TestingHandler testingHandler,
-                           TestResultPresenter testResultPresenter) {
+    public DebugTestNgTestAction(TestNgResources resources,
+                                 EventBus eventBus,
+                                 TestServiceClient client,
+                                 TestingHandler testingHandler,
+                                 DtoFactory dtoFactory,
+                                 NotificationManager notificationManager,
+                                 DebugConfigurationsManager debugConfigurationsManager,
+                                 AppContext appContext,
+                                 TestResultPresenter testResultPresenter,
+                                 TestNgLocalizationConstant localization) {
         super(eventBus,
               testResultPresenter,
               testingHandler,
@@ -53,22 +56,24 @@ public class DebugTestAction extends RunDebugTestAbstractAction {
               appContext,
               notificationManager,
               singletonList(PROJECT_PERSPECTIVE_ID),
-              "Debug Test",
-              "Debug Test",
-              testResources.debugIcon());
+              localization.actionDebugDescription(),
+              localization.actionDebugTestTitle(),
+              resources.testIcon());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Pair<String, String> frameworkAndTestName = getTestingFrameworkAndTestName();
+        Pair<String, String> frameworkAndTestName = Pair.of(TESTNG_FRAMEWORK_NAME, null);
         actionPerformed(frameworkAndTestName, true);
     }
 
     @Override
-    public void updateInPerspective(@NotNull ActionEvent event) {
-        Presentation presentation = event.getPresentation();
-        presentation.setVisible(isEditorInFocus);
+    public void updateInPerspective(@NotNull ActionEvent e) {
+        Presentation presentation = e.getPresentation();
+        presentation.setVisible(!isEditorInFocus);
+        if (!isEditorInFocus) {
+            analyzeProjectTreeSelection();
+        }
         presentation.setEnabled(isEnable);
     }
-
 }
