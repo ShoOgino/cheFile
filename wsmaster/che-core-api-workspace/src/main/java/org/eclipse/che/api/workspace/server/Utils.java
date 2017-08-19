@@ -8,12 +8,13 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.api.workspace.shared;
+package org.eclipse.che.api.workspace.server;
 
 import java.util.List;
 import java.util.Map;
 import org.eclipse.che.api.core.model.workspace.config.Environment;
 import org.eclipse.che.api.core.model.workspace.config.MachineConfig;
+import org.eclipse.che.api.installer.server.impl.InstallerFqn;
 
 /**
  * Utility class for workspace related code that might be useful on server or GWT client.
@@ -50,6 +51,6 @@ public class Utils {
    */
   public static boolean isDev(MachineConfig machineConf) {
     final List<String> installers = machineConf.getInstallers();
-    return installers != null && installers.contains(WSAGENT_INSTALLER);
+    return InstallerFqn.idInKeyList(WSAGENT_INSTALLER, installers);
   }
 }
