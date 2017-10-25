@@ -10,11 +10,20 @@
  */
 package org.eclipse.che.api.debug.shared.model;
 
-/** @author Anatoliy Bazko */
-public interface MutableVariable extends Variable {
+/**
+ * Interface to representation debugger watch expression item.
+ *
+ * @author Oleksandr Andriienko
+ */
+public interface WatchExpression {
 
-  /** Sets the new variable value. */
-  void setValue(SimpleValue value);
+  String getExpression();
 
-  void setName(String name);
+  void setExpression(String expression);
+
+  String getResult();
+
+  void setResult(String result);
+
+  String getKey();
 }
