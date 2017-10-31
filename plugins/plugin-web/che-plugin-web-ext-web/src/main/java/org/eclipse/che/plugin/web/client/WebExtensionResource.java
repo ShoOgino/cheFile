@@ -8,18 +8,29 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.ide.ext.plugins.client;
+package org.eclipse.che.plugin.web.client;
 
 import com.google.gwt.resources.client.ClientBundle;
 import org.vectomatic.dom.svg.ui.SVGResource;
 
-/**
- * Client resources.
- *
- * @author Artem Zatsarynnyi
- */
-public interface PluginsResources extends ClientBundle {
+/** @author Nikolay Zamosenchuk */
+public interface WebExtensionResource extends ClientBundle {
 
-  @Source("images/gwt-che-command-type.svg")
-  SVGResource gwtCheCommandType();
+  @Source("css.svg")
+  SVGResource cssFile();
+
+  @Source("less.svg")
+  SVGResource lessFile();
+
+  @Source("html.svg")
+  SVGResource htmlFile();
+
+  @Source("js.svg")
+  SVGResource jsFile();
+
+  @Source("php.svg")
+  SVGResource phpFile();
+
+  @Source("category/js.svg")
+  SVGResource samplesCategoryJs();
 }

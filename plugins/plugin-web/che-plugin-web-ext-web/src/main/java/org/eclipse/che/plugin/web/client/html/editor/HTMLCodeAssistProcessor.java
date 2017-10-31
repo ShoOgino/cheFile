@@ -8,18 +8,13 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.ide.ext.plugins.client;
+package org.eclipse.che.plugin.web.client.html.editor;
 
-import com.google.gwt.resources.client.ClientBundle;
-import org.vectomatic.dom.svg.ui.SVGResource;
+import org.eclipse.che.ide.api.editor.codeassist.CodeAssistProcessor;
 
 /**
- * Client resources.
+ * Marker interface for HTML.
  *
- * @author Artem Zatsarynnyi
+ * @author Florent Benoit
  */
-public interface PluginsResources extends ClientBundle {
-
-  @Source("images/gwt-che-command-type.svg")
-  SVGResource gwtCheCommandType();
-}
+public interface HTMLCodeAssistProcessor extends CodeAssistProcessor {}
