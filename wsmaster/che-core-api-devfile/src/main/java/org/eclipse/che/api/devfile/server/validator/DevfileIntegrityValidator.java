@@ -9,11 +9,14 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.api.devfile.server;
+package org.eclipse.che.api.devfile.server.validator;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toSet;
 import static org.eclipse.che.api.devfile.server.Constants.EDITOR_TOOL_TYPE;
+import static org.eclipse.che.api.devfile.server.Constants.KUBERNETES_TOOL_TYPE;
+import static org.eclipse.che.api.devfile.server.Constants.OPENSHIFT_TOOL_TYPE;
 import static org.eclipse.che.api.devfile.server.Constants.PLUGIN_TOOL_TYPE;
 
 import java.util.HashSet;
@@ -25,6 +28,7 @@ import org.eclipse.che.api.devfile.model.Command;
 import org.eclipse.che.api.devfile.model.Devfile;
 import org.eclipse.che.api.devfile.model.Project;
 import org.eclipse.che.api.devfile.model.Tool;
+import org.eclipse.che.api.devfile.server.DevfileFormatException;
 
 /** Validates devfile logical integrity. */
 @Singleton
@@ -60,6 +64,7 @@ public class DevfileIntegrityValidator {
   private Set<String> validateTools(Devfile devfile) throws DevfileFormatException {
     Set<String> existingNames = new HashSet<>();
     Tool editorTool = null;
+    Tool recipeTool = null;
     for (Tool tool : devfile.getTools()) {
       if (!existingNames.add(tool.getName())) {
         throw new DevfileFormatException(format("Duplicate tool name found:'%s'", tool.getName()));
@@ -72,9 +77,22 @@ public class DevfileIntegrityValidator {
                     "Multiple editor tools found: '%s', '%s'",
                     editorTool.getName(), tool.getName()));
           }
+          checkFieldNotSet(tool, "local", tool.getLocal());
           editorTool = tool;
           break;
         case PLUGIN_TOOL_TYPE:
+          checkFieldNotSet(tool, "local", tool.getLocal());
+          break;
+        case KUBERNETES_TOOL_TYPE:
+        case OPENSHIFT_TOOL_TYPE:
+          if (recipeTool != null) {
+            throw new DevfileFormatException(
+                format(
+                    "Multiple non plugin or editor type tools found: '%s', '%s'",
+                    recipeTool.getName(), tool.getName()));
+          }
+          checkFieldNotSet(tool, "id", tool.getId());
+          recipeTool = tool;
           break;
         default:
           throw new DevfileFormatException(
@@ -82,6 +100,16 @@ public class DevfileIntegrityValidator {
       }
     }
     return existingNames;
+  }
+
+  private void checkFieldNotSet(Tool tool, String fieldName, String fieldValue)
+      throws DevfileFormatException {
+    if (!isNullOrEmpty(fieldValue)) {
+      throw new DevfileFormatException(
+          format(
+              "Tool of type '%s' cannot contain '%s' field, please check '%s' tool",
+              tool.getType(), fieldName, tool.getName()));
+    }
   }
 
   private void validateCommands(Devfile devfile, Set<String> toolNames)

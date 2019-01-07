@@ -9,8 +9,10 @@
  * Contributors:
  *   Red Hat, Inc. - initial API and implementation
  */
-package org.eclipse.che.api.devfile.server;
+package org.eclipse.che.api.devfile.server.validator;
 
+import org.eclipse.che.api.devfile.server.DevfileFormatException;
+import org.eclipse.che.api.devfile.server.schema.DevfileSchemaProvider;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.reporters.Files;
@@ -28,6 +30,14 @@ public class DevfileSchemaValidatorTest {
   public void shouldValidateCorrectYamlBySchema() throws Exception {
     String devFileYamlContent =
         Files.readFile(getClass().getClassLoader().getResourceAsStream("devfile.yaml"));
+    // when
+    schemaValidator.validateBySchema(devFileYamlContent, false);
+  }
+
+  @Test
+  public void shouldValidateCorrectYamlWithoutCommandsBySchema() throws Exception {
+    String devFileYamlContent =
+        Files.readFile(getClass().getClassLoader().getResourceAsStream("devfile_no_commands.yaml"));
     // when
     schemaValidator.validateBySchema(devFileYamlContent, false);
   }
